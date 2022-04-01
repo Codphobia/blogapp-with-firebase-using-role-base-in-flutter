@@ -1,3 +1,4 @@
+import 'package:blogapp/consts/my_const.dart';
 import 'package:blogapp/services/authmanager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -6,8 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-import '../screens for Admin/home_screen_admin.dart';
-import '../services/databasemanager.dart';
+ import '../services/databasemanager.dart';
 import '../widgets/mybutton.dart';
 import 'forgot_screen_user.dart';
 
@@ -120,13 +120,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           title: 'Login',
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
-                              // if (email == 'jamalkhanii691@gmail.com' &&
-                              //     password == '00000') {
-                              //   Get.off(AdminHomeScreen());
-                              // } else {
+
+                              Myconst.userEnterEmail=emailEditingController.text;
+
+
                                 Get.back();
                                 login();
-                              // }
+
                             }
                           },
                         ),
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           }else{
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
       },),
     );

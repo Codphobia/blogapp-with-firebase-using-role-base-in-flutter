@@ -1,7 +1,6 @@
- import 'package:blogapp/services/authmanager.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-  import 'package:flutter/material.dart';
-
+import 'package:blogapp/consts/my_const.dart';
+import 'package:blogapp/services/authmanager.dart';
+ import 'package:flutter/material.dart';
 
 import '../screens for Admin/home_screen_admin.dart';
 import '../screens for users/home_screen_user.dart';
@@ -18,8 +17,7 @@ class StateCheck extends StatefulWidget {
 }
 
 class _StateCheckState extends State<StateCheck> {
-  AuthServices authServices=AuthServices();
-
+  AuthServices authServices = AuthServices();
 
   @override
   Widget build(BuildContext context) {
@@ -27,34 +25,19 @@ class _StateCheckState extends State<StateCheck> {
       stream: authServices.onAuthStateChanged,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
-           Users? user = snapshot.data  ;
+          Users? user = snapshot.data;
           if (user == null) {
             return const OptionScreen();
-          } else
-            {
-              String uid=authServices.auth.currentUser!.uid;
-              return authServices.getAccountStatus() == false
-                  ?   EmailVerificationScreen(uid: uid,)
-                  :  Center(child: StreamBuilder(
-                stream : FirebaseFirestore.instance
-                    .collection('profileInfo').snapshots(),
-                builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if(!snapshot.hasData)
-                      {
-                        return  Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }else
-                        {
-                          var dataa=snapshot.data!.docs[0];
-                          return dataa['role']=='admin'? AdminHomeScreen():UserHomeScreen();
-                        }
-                  },),);
-
-            }
-
-
-
+          } else {
+            String uid = authServices.auth.currentUser!.uid;
+            return authServices.getAccountStatus() == false
+                ? EmailVerificationScreen(
+                    uid: uid,
+                  )
+                : Myconst.userEnterEmail == 'jamalkhanii691@gmail.com'
+                    ? AdminHomeScreen()
+                    : UserHomeScreen();
+          }
         } else {
           return const Scaffold(
             body: Center(
@@ -64,8 +47,5 @@ class _StateCheckState extends State<StateCheck> {
         }
       },
     );
-
   }
-
-  }
-
+}
