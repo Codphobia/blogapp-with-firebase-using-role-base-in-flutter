@@ -1,5 +1,4 @@
-import 'package:blogapp/consts/my_const.dart';
-import 'package:blogapp/services/authmanager.dart';
+ import 'package:blogapp/services/authmanager.dart';
  import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

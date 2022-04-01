@@ -12,19 +12,14 @@ class PostListScreen extends StatefulWidget {
 }
 
 class _PostListScreenState extends State<PostListScreen> {
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('postsList').snapshots(),
+          stream:
+              FirebaseFirestore.instance.collection('postsList').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
@@ -35,49 +30,59 @@ class _PostListScreenState extends State<PostListScreen> {
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    PostModel postModel = PostModel.fromMap(snapshot.data!.docs[index]);
+                    PostModel postModel =
+                        PostModel.fromMap(snapshot.data!.docs[index]);
                     return InkWell(
-                      onTap: (){
-                        Get.to(PostDetailScreen(postModel:  postModel),
-                            transition: Transition.circularReveal ,duration: Duration(seconds: 1));
+                      onTap: () {
+                        Get.to(PostDetailScreen(postModel: postModel),
+                            transition: Transition.circularReveal,
+                            duration: Duration(seconds: 1));
 
                         print(postModel);
-                        },
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            clipBehavior: Clip.antiAlias,
-                            borderRadius: BorderRadius.circular(40),
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 2),
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.3,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  image: DecorationImage(
-                                    image: NetworkImage(postModel.url),
-                                    fit: BoxFit.cover,
-                                  )),
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 7, horizontal: 8),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              clipBehavior: Clip.antiAlias,
+                              borderRadius: BorderRadius.circular(40),
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 2),
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    image: DecorationImage(
+                                      image: NetworkImage(postModel.url),
+                                      fit: BoxFit.cover,
+                                    )),
+                              ),
                             ),
-                          ),
-                          Positioned(
-                              bottom: 50,
-                              left: 50,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 30, horizontal: 10),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    postModel.title,
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                      postModel.title,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   ),
-
-
                                 ],
-                              )),
-                        ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   });

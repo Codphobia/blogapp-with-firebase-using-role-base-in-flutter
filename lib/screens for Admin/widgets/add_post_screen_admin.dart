@@ -26,15 +26,16 @@ class _AdminAddPostScreenState extends State<AdminAddPostScreen> {
   var titleEditingController = TextEditingController();
   var descriptionEditingController = TextEditingController();
   String? title, description;
-  AuthServices authServices=AuthServices();
-   User? user;
+  AuthServices authServices = AuthServices();
+  User? user;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Add New Post'),
-        backgroundColor: const Color(0xdfe38d2c),),
+      appBar: AppBar(
+        title: Text('Add New Post'),
+        backgroundColor: const Color(0xdfe38d2c),
+      ),
       body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
@@ -164,7 +165,6 @@ class _AdminAddPostScreenState extends State<AdminAddPostScreen> {
                               try {
                                 addPost();
                                 Get.back();
-
                               } catch (e) {
                                 print(e.toString());
                               }
@@ -193,17 +193,12 @@ class _AdminAddPostScreenState extends State<AdminAddPostScreen> {
     });
   }
 
-   addPost() async {
-
+  addPost() async {
     final imageUrl = await uploadImage();
-  dynamic res=await databaseManager.createPost(titleEditingController.text, descriptionEditingController.text , imageUrl );
-if(res== null)
-  {
-
-  }else
-    {
-
-    }
+    dynamic res = await databaseManager.createPost(titleEditingController.text,
+        descriptionEditingController.text, imageUrl);
+    if (res == null) {
+    } else {}
   }
 
   Future uploadImage() async {

@@ -37,13 +37,18 @@ class _PostDetailScreenUserState extends State<PostDetailScreenUser> {
                 fit: BoxFit.cover,
               )),
             ),
-            Text(
-              widget.postModel.title,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              widget.postModel.description,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 20),
+              child: Column(children: [
+                Text(
+                  widget.postModel.title,
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  widget.postModel.description,
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              ]),
             ),
           ],
         ),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
  import 'package:url_launcher/url_launcher.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../services/authmanager.dart';
 
 class MyDarwer extends StatefulWidget {
@@ -66,32 +66,85 @@ class _MyDarwerState extends State<MyDarwer> {
                         Expanded(child: Text(email)),
                       ],
                     ),
-                  ),
+                  ),  Divider(),
                   ListTile(
-                    title: const Text('Email'),
-                    trailing: const Icon(Icons.email),
+                    title: const Text('Facebook'),
+                    trailing: const Icon(Icons.facebook),
                     onTap: () async {
-                      String url = 'https://web.facebook.com/photo/?fbid=147793234393593&set=a.110151301491120';
+                      String url = 'https://web.facebook.com/codphobia/';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
-                        print('can not  lauch url');
+                        print('can not  launch url');
                       }
                     },
-                  ),
+                  ),  Divider(),
+                  ListTile(
+                    title: const Text('Linkedin'),
+                    trailing:   Icon(FontAwesomeIcons.linkedin),
+                    onTap: () async {
+                      String url = 'https://www.linkedin.com/in/jamal-shah-26aa4b235/';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        print('can not  launch url');
+                      }
+                    },
+                  ),  Divider(),
+                  ListTile(
+                    title: const Text('Instagram'),
+                    trailing:   Icon(FontAwesomeIcons.instagram),
+                    onTap: () async {
+                      String url = 'https://www.instagram.com/codphobiaa/?hl=en';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        print('can not  launch url');
+                      }
+                    },
+                  ),  Divider(),
+                  ListTile(
+                    title: const Text('WhatApp '),
+                    trailing:   Icon(FontAwesomeIcons.whatsapp),
+                    onTap: () async {
+                      String phoneNumber='+923101186261';
+                      String url = 'https://wa.me/${phoneNumber}?text=hey!';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        print('can not  launch url');
+                      }
+                    },
+                  ),  Divider(),
                   ListTile(
                     title: const Text('Contact Us '),
                     trailing: const Icon(Icons.phone),
                     onTap: ()async {
-                      final phoneNumber='+923101186261';
+                      const phoneNumber='+923101186261';
                       String url = 'tel:$phoneNumber';
                       if (await canLaunch(url)) {
                       await launch(url);
                       } else {
-                      print('can not  lauch url');
+                      print('can not  launch url');
+                      }
+                    },
+                  ),  Divider(),
+                  ListTile(
+                    title: const Text('Email Us '),
+                    trailing: const Icon(Icons.email),
+                    onTap: ()async {
+                      final toEmail='jamalkhanii691@gmail.com';
+                      final subject='say something about my BlogApp';
+                      final massege='starting from this line';
+                      String url = 'mailto:$toEmail?subject=${subject}&body=${massege}';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        print('can not  launch url');
                       }
                     },
                   ),
+                  Divider(),
                   ListTile(
                     title: const Text('LogOut '),
                     trailing: const Icon(Icons.logout),
@@ -154,7 +207,7 @@ class _MyDarwerState extends State<MyDarwer> {
                             ),
                       );
                     }
-                  ),
+                  ),  Divider(),
                 ],
               );
             }

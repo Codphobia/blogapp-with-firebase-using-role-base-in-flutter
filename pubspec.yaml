@@ -47,6 +47,8 @@ dependencies:
   cloud_firestore: ^3.1.10
   url_launcher: ^6.0.20
   shared_preferences: ^2.0.13
+  font_awesome_flutter: ^10.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

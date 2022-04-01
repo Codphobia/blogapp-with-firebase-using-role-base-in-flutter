@@ -1,5 +1,4 @@
-import 'package:blogapp/consts/my_const.dart';
-import 'package:blogapp/services/authmanager.dart';
+ import 'package:blogapp/services/authmanager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
