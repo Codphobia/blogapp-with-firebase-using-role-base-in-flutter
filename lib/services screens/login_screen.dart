@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
- import '../services/databasemanager.dart';
+import '../services/databasemanager.dart';
 import '../widgets/mybutton.dart';
 import 'forgot_screen_user.dart';
 
@@ -26,13 +27,25 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   var emailEditingController = TextEditingController();
   var passwordEditingController = TextEditingController();
-
-  String email = "", password = "";
-
   bool _obscureText = true;
+  String email = "", password = "";
+  late SharedPreferences storeData;
 
   @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+
+demo();
+
+  }
+  Future<void> demo()async {
+    storeData =await  SharedPreferences.getInstance();
+  }
+  @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xdfe38d2c),
@@ -43,10 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
         centerTitle: true,
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('profileInfo').snapshots(),
+        stream:
+            FirebaseFirestore.instance.collection('profileInfo').snapshots(),
         builder: (context, snapshot) {
-        if(snapshot.hasData)
-          {
+          if (snapshot.hasData) {
             return SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Padding(
@@ -54,7 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Form(
                   key: _formkey,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             email = value;
                           },
                           validator: (value) {
-                            return value!.isEmpty ? 'please enter your email' : null;
+                            return value!.isEmpty
+                                ? 'please enter your email'
+                                : null;
                           },
                         ),
                         const SizedBox(
@@ -120,13 +136,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           title: 'Login',
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
+                              storeData.setString(
+                                  'enterEmail', emailEditingController.text.toString());
 
-                              Myconst.userEnterEmail=emailEditingController.text;
-
-
-                                Get.back();
-                                login();
-
+                              Get.back();
+                              login();
                             }
                           },
                         ),
@@ -148,10 +162,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             );
-          }else{
-          return Center(child: CircularProgressIndicator());
-        }
-      },),
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
 

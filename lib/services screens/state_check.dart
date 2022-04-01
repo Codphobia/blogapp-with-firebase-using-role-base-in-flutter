@@ -1,6 +1,7 @@
 import 'package:blogapp/consts/my_const.dart';
 import 'package:blogapp/services/authmanager.dart';
  import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens for Admin/home_screen_admin.dart';
 import '../screens for users/home_screen_user.dart';
@@ -18,7 +19,16 @@ class StateCheck extends StatefulWidget {
 
 class _StateCheckState extends State<StateCheck> {
   AuthServices authServices = AuthServices();
+  late SharedPreferences storeData;
 
+  @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+   //
+
+    demo();
+  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Users?>(
@@ -30,11 +40,12 @@ class _StateCheckState extends State<StateCheck> {
             return const OptionScreen();
           } else {
             String uid = authServices.auth.currentUser!.uid;
+
             return authServices.getAccountStatus() == false
                 ? EmailVerificationScreen(
                     uid: uid,
                   )
-                : Myconst.userEnterEmail == 'jamalkhanii691@gmail.com'
+                :  storeData.getString('enterEmail') == 'jamalkhanii691@gmail.com'
                     ? AdminHomeScreen()
                     : UserHomeScreen();
           }
@@ -47,5 +58,9 @@ class _StateCheckState extends State<StateCheck> {
         }
       },
     );
+  }
+
+  Future<void> demo()async {
+    storeData =await  SharedPreferences.getInstance();
   }
 }
