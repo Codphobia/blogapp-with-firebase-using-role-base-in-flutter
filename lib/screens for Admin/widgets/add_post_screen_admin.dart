@@ -33,7 +33,7 @@ class _AdminAddPostScreenState extends State<AdminAddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Post'),
+        title: const Text('Add New Post'),
         backgroundColor: const Color(0xdfe38d2c),
       ),
       body: SingleChildScrollView(
@@ -166,6 +166,7 @@ class _AdminAddPostScreenState extends State<AdminAddPostScreen> {
                                 addPost();
                                 Get.back();
                               } catch (e) {
+                                // ignore: avoid_print
                                 print(e.toString());
                               }
                             }
@@ -185,7 +186,7 @@ class _AdminAddPostScreenState extends State<AdminAddPostScreen> {
     final XFile? photo = await ImagePicker().pickImage(source: source);
     setState(() {
       if (photo == null) {
-        return null;
+        return;
       } else {
         image = File(photo.path);
         uploadImage();

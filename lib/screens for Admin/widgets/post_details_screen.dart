@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../models/post_model.dart';
 import '../../services/databasemanager.dart';
 
+// ignore: must_be_immutable
 class PostDetailScreen extends StatefulWidget {
   PostModel postModel;
 
@@ -31,8 +32,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               onPressed: () {
                 Get.to(AdminUpdatetScreen(postModel: widget.postModel));
               },
-              icon: Icon(Icons.edit_attributes_outlined)),
-          SizedBox(width: 3),
+              icon: const Icon(Icons.edit_attributes_outlined)),
+          const SizedBox(width: 3),
           IconButton(
               onPressed: () {
                 showDialog(
@@ -61,8 +62,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           TextButton(
-                              onPressed: ()  {
-                                DatabaseManager().deletePost(widget.postModel.id);
+                              onPressed: () {
+                                DatabaseManager()
+                                    .deletePost(widget.postModel.id);
                                 Get.back();
                                 Get.back();
                               },
@@ -93,8 +95,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   ),
                 );
               },
-              icon: Icon(Icons.remove_circle_outline_rounded)),
-          SizedBox(width: 3),
+              icon: const Icon(Icons.remove_circle_outline_rounded)),
+          const SizedBox(width: 3),
         ],
       ),
       body: SingleChildScrollView(
@@ -113,15 +115,17 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               )),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 20),
               child: Column(children: [
                 Text(
                   widget.postModel.title,
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   widget.postModel.description,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ]),
             ),

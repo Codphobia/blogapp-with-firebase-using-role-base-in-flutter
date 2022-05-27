@@ -4,16 +4,14 @@ import 'package:blogapp/services/authmanager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
 class EmailVerificationScreen extends StatefulWidget {
+  final String uid;
 
-final String uid;
-
-  const EmailVerificationScreen({Key? key,required this.uid })
+  const EmailVerificationScreen({Key? key, required this.uid})
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _EmailVerificationScreenState createState() =>
       _EmailVerificationScreenState();
 }
@@ -21,7 +19,7 @@ final String uid;
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   late Timer timer;
   bool? verified;
-  AuthServices authServices=AuthServices();
+  AuthServices authServices = AuthServices();
   @override
   void initState() {
     authServices.sendEmailForVerification();
@@ -52,9 +50,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
             child: const Center(
               child: Text(
-                "We have sent an Email. Please check your Email to verify this account.",style: TextStyle(
-                color: Colors.blue,
-              ),
+                "We have sent an Email. Please check your Email to verify this account.",
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -77,7 +76,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   Future<void> checkEmailVerified(bool isVerified) async {
     if (isVerified) {
       timer.cancel();
-      Get.offAll(() => StateCheck(),);
+      Get.offAll(
+        () => const StateCheck(),
+      );
     }
   }
 }

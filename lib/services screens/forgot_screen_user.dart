@@ -1,14 +1,13 @@
- import 'package:blogapp/services/authmanager.dart';
+import 'package:blogapp/services/authmanager.dart';
 import 'package:flutter/material.dart';
- import 'package:lottie/lottie.dart';
-
+import 'package:lottie/lottie.dart';
 
 import '../widgets/mybutton.dart';
 
-
 class ForgotScreen extends StatefulWidget {
-
-  const ForgotScreen({Key? key, }) : super(key: key);
+  const ForgotScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ForgotScreen> createState() => _ForgotScreenState();
@@ -16,9 +15,8 @@ class ForgotScreen extends StatefulWidget {
 
 class _ForgotScreenState extends State<ForgotScreen> {
   final _formkey = GlobalKey<FormState>();
-  AuthServices authServices=AuthServices();
+  AuthServices authServices = AuthServices();
   var emailEditingController = TextEditingController();
-
 
   String email = "";
 
@@ -26,10 +24,10 @@ class _ForgotScreenState extends State<ForgotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xdfe38d2c),
+        backgroundColor: const Color(0xdfe38d2c),
         title: const Text(
           'Forgot Screen',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
@@ -73,13 +71,10 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 MyButton(
                     title: 'Reset',
                     onPressed: () async {
-
                       if (_formkey.currentState!.validate()) {
-
-                        authServices.sendPasswordResetEmail(emailEditingController.text.toString().trim());
-
+                        authServices.sendPasswordResetEmail(
+                            emailEditingController.text.toString().trim());
                       }
-
                     }),
               ],
             ),

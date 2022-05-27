@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
-  late final title;
-  late final VoidCallback onPressed;
+  // ignore: prefer_typing_uninitialized_variables
+  final title;
+  final VoidCallback onPressed;
 
-  MyButton({Key? key, required this.title, required this.onPressed}) : super(key: key);
+  const MyButton({Key? key, required this.title, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(10),
-
       child: MaterialButton(
-minWidth: double.infinity,
+        minWidth: double.infinity,
         onPressed: onPressed,
+        // ignore: sort_child_properties_last
         child: Text(
           title.toString(),
-          style: TextStyle(color: Colors.white),
-
+          style: const TextStyle(color: Colors.white),
         ),
-        color:  Colors.pink.shade300,
+        color: Colors.pink.shade300,
       ),
     );
   }

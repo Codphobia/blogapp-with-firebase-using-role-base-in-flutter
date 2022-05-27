@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
- import '../widgets/mybutton.dart';
+import '../widgets/mybutton.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
@@ -11,6 +11,7 @@ class RegisterScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
@@ -143,8 +144,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void createUser() async {
     try {
-     final result= await authServices.signUpWithEmail(emailEditingController.text,
-          passwordEditingController.text, nameEditingController.text);
+      final result = await authServices.signUpWithEmail(
+          emailEditingController.text,
+          passwordEditingController.text,
+          nameEditingController.text);
       if (result == null) {
         Fluttertoast.showToast(
             msg: 'sign in error, could not be able to login');

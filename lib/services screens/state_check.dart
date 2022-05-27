@@ -1,5 +1,5 @@
- import 'package:blogapp/services/authmanager.dart';
- import 'package:flutter/material.dart';
+import 'package:blogapp/services/authmanager.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens for Admin/home_screen_admin.dart';
@@ -8,7 +8,7 @@ import 'email_verification_screen.dart';
 import 'option_screen.dart';
 
 class StateCheck extends StatefulWidget {
-  StateCheck({
+  const StateCheck({
     Key? key,
   }) : super(key: key);
 
@@ -21,13 +21,13 @@ class _StateCheckState extends State<StateCheck> {
   late SharedPreferences storeData;
 
   @override
-  void initState()  {
-    // TODO: implement initState
+  void initState() {
     super.initState();
-   //
+    //
 
     demo();
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Users?>(
@@ -44,9 +44,10 @@ class _StateCheckState extends State<StateCheck> {
                 ? EmailVerificationScreen(
                     uid: uid,
                   )
-                :  storeData.getString('enterEmail') == 'jamalkhanii691@gmail.com'
-                    ? AdminHomeScreen()
-                    : UserHomeScreen();
+                : storeData.getString('enterEmail') ==
+                        'jamalkhanii691@gmail.com'
+                    ? const AdminHomeScreen()
+                    : const UserHomeScreen();
           }
         } else {
           return const Scaffold(
@@ -59,7 +60,7 @@ class _StateCheckState extends State<StateCheck> {
     );
   }
 
-  Future<void> demo()async {
-    storeData =await  SharedPreferences.getInstance();
+  Future<void> demo() async {
+    storeData = await SharedPreferences.getInstance();
   }
 }

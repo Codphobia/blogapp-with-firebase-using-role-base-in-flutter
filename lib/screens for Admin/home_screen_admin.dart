@@ -1,5 +1,5 @@
 import 'package:blogapp/screens%20for%20Admin/widgets/user_lists_screen.dart';
-import 'package:blogapp/widgets/myDrawer.dart';
+import 'package:blogapp/widgets/mydrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +8,11 @@ import 'package:get/get.dart';
 import 'widgets/add_post_screen_admin.dart';
 import 'widgets/posts_list_screen.dart';
 
-
-
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AdminHomeScreenState createState() => _AdminHomeScreenState();
 }
 
@@ -31,11 +30,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Get.to(AdminAddPostScreen(),
+                  Get.to(const AdminAddPostScreen(),
                       transition: Transition.leftToRight,
-                      duration: Duration(seconds: 1));
+                      duration: const Duration(seconds: 1));
                 },
-                icon: Icon(Icons.add)),
+                icon: const Icon(Icons.add)),
           ],
           bottom: const TabBar(tabs: [
             Tab(
@@ -50,15 +49,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           UsersListScreen(),
           PostListScreen(),
         ]),
-        drawer: SafeArea(
-          child:MyDarwer(),
+        drawer: const SafeArea(
+          child: MyDarwer(),
         ),
       ),
     );
   }
 
   getData() async {
-    User? user = await FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
 
     var getDocuments = await FirebaseFirestore.instance
         .collection('profileInfo')

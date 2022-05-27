@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +10,7 @@ import '../../services/databasemanager.dart';
 import '../../widgets/mybutton.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+// ignore: must_be_immutable
 class AdminUpdatetScreen extends StatefulWidget {
   PostModel postModel;
 
@@ -26,29 +25,25 @@ class AdminUpdatetScreen extends StatefulWidget {
 
 class _AdminUpdatetScreenState extends State<AdminUpdatetScreen> {
   File? image;
-  AuthServices authServices=AuthServices();
+  AuthServices authServices = AuthServices();
   DatabaseManager databaseManager = DatabaseManager();
   final _formkey = GlobalKey<FormState>();
   var titleEditingController = TextEditingController();
   var descriptionEditingController = TextEditingController();
   String? title, description;
 
-
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     titleEditingController.text = widget.postModel.title;
     descriptionEditingController.text = widget.postModel.description;
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update Post Screen'),
+        title: const Text('Update Post Screen'),
         backgroundColor: const Color(0xdfe38d2c),
       ),
       body: SingleChildScrollView(
@@ -130,7 +125,6 @@ class _AdminUpdatetScreenState extends State<AdminUpdatetScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextFormField(
-
                           controller: titleEditingController,
                           keyboardType: TextInputType.text,
                           decoration: const InputDecoration(
@@ -152,7 +146,6 @@ class _AdminUpdatetScreenState extends State<AdminUpdatetScreen> {
                           height: 14,
                         ),
                         TextFormField(
-
                           keyboardType: TextInputType.text,
                           controller: descriptionEditingController,
                           maxLines: 10,
@@ -181,10 +174,11 @@ class _AdminUpdatetScreenState extends State<AdminUpdatetScreen> {
                             if (_formkey.currentState!.validate()) {
                               try {
                                 Get.back();
-                                 updatePost();
+                                updatePost();
 
-                                 Get.back();
+                                Get.back();
                               } catch (e) {
+                                // ignore: avoid_print
                                 print(e.toString());
                               }
                             }
@@ -204,7 +198,7 @@ class _AdminUpdatetScreenState extends State<AdminUpdatetScreen> {
     final XFile? photo = await ImagePicker().pickImage(source: source);
     setState(() {
       if (photo == null) {
-        return null;
+        return;
       } else {
         image = File(photo.path);
         uploadImage();
@@ -213,11 +207,11 @@ class _AdminUpdatetScreenState extends State<AdminUpdatetScreen> {
   }
 
   void updatePost() async {
-
     final imageUrl = await uploadImage();
     dynamic result = databaseManager.updatePost(titleEditingController.text,
-        descriptionEditingController.text, imageUrl,widget.postModel.id);
+        descriptionEditingController.text, imageUrl, widget.postModel.id);
     if (result == null) {
+      // ignore: avoid_print
       print('fail');
     } else {
       titleEditingController.clear();

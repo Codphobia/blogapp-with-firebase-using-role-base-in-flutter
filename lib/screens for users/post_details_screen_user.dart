@@ -1,6 +1,7 @@
 import 'package:blogapp/models/post_model.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class PostDetailScreenUser extends StatefulWidget {
   PostModel postModel;
 
@@ -38,15 +39,17 @@ class _PostDetailScreenUserState extends State<PostDetailScreenUser> {
               )),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 20),
               child: Column(children: [
                 Text(
                   widget.postModel.title,
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   widget.postModel.description,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ]),
             ),

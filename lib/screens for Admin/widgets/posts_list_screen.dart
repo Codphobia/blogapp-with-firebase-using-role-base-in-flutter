@@ -23,7 +23,7 @@ class _PostListScreenState extends State<PostListScreen> {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
@@ -36,8 +36,9 @@ class _PostListScreenState extends State<PostListScreen> {
                       onTap: () {
                         Get.to(PostDetailScreen(postModel: postModel),
                             transition: Transition.circularReveal,
-                            duration: Duration(seconds: 1));
+                            duration: const Duration(seconds: 1));
 
+                        // ignore: avoid_print
                         print(postModel);
                       },
                       child: Padding(
@@ -73,7 +74,7 @@ class _PostListScreenState extends State<PostListScreen> {
                                     alignment: Alignment.bottomCenter,
                                     child: Text(
                                       postModel.title,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700),
                                     ),

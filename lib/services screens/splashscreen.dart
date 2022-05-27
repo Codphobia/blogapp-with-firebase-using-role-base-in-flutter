@@ -7,23 +7,25 @@ import 'package:lottie/lottie.dart';
 import 'state_check.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({
+  const SplashScreen({
     Key? key,
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Timer(
-      const Duration(seconds:4),
-      () => Get.offAll(() => StateCheck( ),transition: Transition.downToUp,duration: Duration(seconds: 1) ),
+      const Duration(seconds: 4),
+      () => Get.offAll(() => const StateCheck(),
+          transition: Transition.downToUp,
+          duration: const Duration(seconds: 1)),
     );
   }
 

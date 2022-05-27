@@ -1,12 +1,11 @@
+import 'package:blogapp/services%20screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:lottie/lottie.dart';
 
-
 import '../screens for users/register_screen_user.dart';
 import '../widgets/mybutton.dart';
-import 'login_screen.dart';
 
 class OptionScreen extends StatefulWidget {
   const OptionScreen({
@@ -14,6 +13,7 @@ class OptionScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _OptionScreenState createState() => _OptionScreenState();
 }
 
@@ -45,8 +45,9 @@ class _OptionScreenState extends State<OptionScreen> {
                 ),
                 MyButton(
                   title: 'login',
-                  onPressed: () => Get.to(LoginScreen(),transition: Transition.rightToLeft,
-                      duration: Duration(seconds: 1)),
+                  onPressed: () => Get.to(const LoginScreen(),
+                      transition: Transition.rightToLeft,
+                      duration: const Duration(seconds: 1)),
                 ),
                 Row(children: const [
                   Expanded(child: Divider()),
@@ -55,10 +56,10 @@ class _OptionScreenState extends State<OptionScreen> {
                 ]),
                 MyButton(
                   title: 'sign up',
-                  onPressed: () =>  Get.to(RegisterScreen(),transition: Transition.leftToRight,
-                      duration: Duration(seconds: 1)),
-                  ),
-
+                  onPressed: () => Get.to(const RegisterScreen(),
+                      transition: Transition.leftToRight,
+                      duration: const Duration(seconds: 1)),
+                ),
               ],
             ),
           ),

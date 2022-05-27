@@ -13,7 +13,7 @@ class Users {
 
 class AuthServices {
   FirebaseAuth auth = FirebaseAuth.instance;
-  DatabaseManager databaseManager=DatabaseManager();
+  DatabaseManager databaseManager = DatabaseManager();
 
   Users? _userFromFirebase(User? user) {
     if (user == null) {
@@ -22,17 +22,17 @@ class AuthServices {
     return Users(uid: user.uid);
   }
 
-
-
   Stream<Users?> get onAuthStateChanged {
     return auth.authStateChanges().map(_userFromFirebase);
   }
 
-
-
- Future signInWithEmail(String email, String password,)async {
+  Future signInWithEmail(
+    String email,
+    String password,
+  ) async {
     try {
-      UserCredential userCredential = await  auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
       return userCredential.user;
     } on FirebaseException catch (e) {
       Get.snackbar("error", e.message!,
@@ -40,15 +40,11 @@ class AuthServices {
     }
   }
 
-
-
   bool getAccountStatus() {
     var isVerified = auth.currentUser!.emailVerified;
 
     return isVerified;
   }
-
-
 
   Future signUpWithEmail(String email, String password, String name) async {
     try {
@@ -57,7 +53,7 @@ class AuthServices {
         password: password,
       );
       User? user = userCredential.user;
-      await databaseManager.createUserData(name, 'user', user!.uid,email);
+      await databaseManager.createUserData(name, 'user', user!.uid, email);
       return user;
     } on FirebaseException catch (e) {
       Get.snackbar(
@@ -69,15 +65,15 @@ class AuthServices {
     }
   }
 
-
   Future<Users?> currentUser() async {
     final user = auth.currentUser;
     return _userFromFirebase(user);
   }
 
-   Future<void> sendPasswordResetEmail(String email) async {
+  Future<void> sendPasswordResetEmail(String email) async {
     try {
       await auth.sendPasswordResetEmail(email: email).then((value) {
+        // ignore: avoid_print
         print('link send');
         Get.back();
       });
@@ -89,19 +85,16 @@ class AuthServices {
   }
 
   // 8 no function
-  @override
-  Future  sendEmailForVerification() async {
-     await auth.currentUser!.sendEmailVerification();
+  Future sendEmailForVerification() async {
+    await auth.currentUser!.sendEmailVerification();
   }
 
-   @override
   bool emailVerification() {
     User? user = auth.currentUser;
     user!.reload();
     return user.emailVerified;
   }
 
-   @override
   void logout() async {
     await auth.signOut().then((value) => Get.back());
   }

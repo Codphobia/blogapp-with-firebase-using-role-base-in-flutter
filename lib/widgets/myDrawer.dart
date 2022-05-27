@@ -1,11 +1,11 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
- import 'package:url_launcher/url_launcher.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../services/authmanager.dart';
 
 class MyDarwer extends StatefulWidget {
@@ -30,8 +30,7 @@ class _MyDarwerState extends State<MyDarwer> {
           future: getData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(
-                  child: const Text('Data Loading Please wait...'));
+              return const Center(child: Text('Data Loading Please wait...'));
             } else {
               return ListView(
                 // Important: Remove any padding from the ListView.
@@ -39,7 +38,7 @@ class _MyDarwerState extends State<MyDarwer> {
                 children: [
                   DrawerHeader(
                     decoration: const BoxDecoration(
-                      color: const Color(0xdfe38d2c),
+                      color: Color(0xdfe38d2c),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,148 +65,161 @@ class _MyDarwerState extends State<MyDarwer> {
                         Expanded(child: Text(email)),
                       ],
                     ),
-                  ),  Divider(),
+                  ),
+                  const Divider(),
                   ListTile(
                     title: const Text('Facebook'),
                     trailing: const Icon(Icons.facebook),
                     onTap: () async {
                       String url = 'https://web.facebook.com/codphobia/';
-                      if (await canLaunch(url)) {
-                        await launch(url);
+                      if (await canLaunchUrlString(url)) {
+                        await launchUrlString(url);
                       } else {
-                        print('can not  launch url');
-                      }
-                    },
-                  ),  Divider(),
-                  ListTile(
-                    title: const Text('Linkedin'),
-                    trailing:   Icon(FontAwesomeIcons.linkedin),
-                    onTap: () async {
-                      String url = 'https://www.linkedin.com/in/jamal-shah-26aa4b235/';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        print('can not  launch url');
-                      }
-                    },
-                  ),  Divider(),
-                  ListTile(
-                    title: const Text('Instagram'),
-                    trailing:   Icon(FontAwesomeIcons.instagram),
-                    onTap: () async {
-                      String url = 'https://www.instagram.com/codphobiaa/?hl=en';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        print('can not  launch url');
-                      }
-                    },
-                  ),  Divider(),
-                  ListTile(
-                    title: const Text('WhatApp '),
-                    trailing:   Icon(FontAwesomeIcons.whatsapp),
-                    onTap: () async {
-                      String phoneNumber='+923101186261';
-                      String url = 'https://wa.me/${phoneNumber}?text=hey!';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        print('can not  launch url');
-                      }
-                    },
-                  ),  Divider(),
-                  ListTile(
-                    title: const Text('Contact Us '),
-                    trailing: const Icon(Icons.phone),
-                    onTap: ()async {
-                      const phoneNumber='+923101186261';
-                      String url = 'tel:$phoneNumber';
-                      if (await canLaunch(url)) {
-                      await launch(url);
-                      } else {
-                      print('can not  launch url');
-                      }
-                    },
-                  ),  Divider(),
-                  ListTile(
-                    title: const Text('Email Us '),
-                    trailing: const Icon(Icons.email),
-                    onTap: ()async {
-                      final toEmail='jamalkhanii691@gmail.com';
-                      final subject='say something about my BlogApp';
-                      final massege='starting from this line';
-                      String url = 'mailto:$toEmail?subject=${subject}&body=${massege}';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
+                        // ignore: avoid_print
                         print('can not  launch url');
                       }
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    title: const Text('LogOut '),
-                    trailing: const Icon(Icons.logout),
-                    onTap: ()async {
-                      showDialog(
-                        context: context,
-                        builder: (context) =>
-                            AlertDialog(
-                              backgroundColor: const Color(0xdfe38d2c),
-                              content: Text(
-                                'Are You sure want to Logout..?',
-                                style: GoogleFonts.alike(
-                                  textStyle: const TextStyle(
-                                    color: Colors.white,
-                                  ),
+                    title: const Text('Linkedin'),
+                    trailing: const Icon(FontAwesomeIcons.linkedin),
+                    onTap: () async {
+                      String url =
+                          'https://www.linkedin.com/in/jamal-shah-26aa4b235/';
+                      if (await canLaunchUrlString(url)) {
+                        await launchUrlString(url);
+                      } else {
+                        // ignore: avoid_print
+                        print('can not  launch url');
+                      }
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: const Text('Instagram'),
+                    trailing: const Icon(FontAwesomeIcons.instagram),
+                    onTap: () async {
+                      String url =
+                          'https://www.instagram.com/codphobiaa/?hl=en';
+                      if (await canLaunchUrlString(url)) {
+                        await launchUrlString(url);
+                      } else {
+                        // ignore: avoid_print
+                        print('can not  launch url');
+                      }
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: const Text('WhatApp '),
+                    trailing: const Icon(FontAwesomeIcons.whatsapp),
+                    onTap: () async {
+                      String phoneNumber = '+923101186261';
+                      String url = 'https://wa.me/$phoneNumber?text=hey!';
+                      if (await canLaunchUrlString(url)) {
+                        await launchUrlString(url);
+                      } else {
+                        // ignore: avoid_print
+                        print('can not  launch url');
+                      }
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: const Text('Contact Us '),
+                    trailing: const Icon(Icons.phone),
+                    onTap: () async {
+                      const phoneNumber = '+923101186261';
+                      String url = 'tel:$phoneNumber';
+                      if (await canLaunchUrlString(url)) {
+                        await launchUrlString(url);
+                      } else {
+                        // ignore: avoid_print
+                        print('can not  launch url');
+                      }
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: const Text('Email Us '),
+                    trailing: const Icon(Icons.email),
+                    onTap: () async {
+                      const toEmail = 'jamalkhanii691@gmail.com';
+                      const subject = 'say something about my BlogApp';
+                      const massege = 'starting from this line';
+                      String url =
+                          'mailto:$toEmail?subject=$subject&body=$massege';
+                      if (await canLaunchUrlString(url)) {
+                        await launchUrlString(url);
+                      } else {
+                        // ignore: avoid_print
+                        print('can not  launch url');
+                      }
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                      title: const Text('LogOut '),
+                      trailing: const Icon(Icons.logout),
+                      onTap: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            backgroundColor: const Color(0xdfe38d2c),
+                            content: Text(
+                              'Are You sure want to Logout..?',
+                              style: GoogleFonts.alike(
+                                textStyle: const TextStyle(
+                                  color: Colors.white,
                                 ),
                               ),
-                              title: Text(
-                                'Confirmation..!',
-                                style: GoogleFonts.alike(
-                                  textStyle: const TextStyle(
-                                    color: Colors.white,
-                                  ),
+                            ),
+                            title: Text(
+                              'Confirmation..!',
+                              style: GoogleFonts.alike(
+                                textStyle: const TextStyle(
+                                  color: Colors.white,
                                 ),
                               ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextButton(
-                                        onPressed: () {
-                                          authServices.logout();
-
-                                        },
-                                        child: Text(
-                                          'Yes',
-                                          style: GoogleFonts.alike(
-                                            textStyle: const TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        )),
-                                    TextButton(
-                                      onPressed: () async {
-
-                                        Get.back();
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        authServices.logout();
                                       },
                                       child: Text(
-                                        'No',
+                                        'Yes',
                                         style: GoogleFonts.alike(
                                           textStyle: const TextStyle(
                                             color: Colors.white,
                                           ),
                                         ),
+                                      )),
+                                  TextButton(
+                                    onPressed: () async {
+                                      Get.back();
+                                    },
+                                    child: Text(
+                                      'No',
+                                      style: GoogleFonts.alike(
+                                        textStyle: const TextStyle(
+                                          color: Colors.white,
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                      );
-                    }
-                  ),  Divider(),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                  const Divider(),
                 ],
               );
             }
@@ -218,7 +230,7 @@ class _MyDarwerState extends State<MyDarwer> {
   }
 
   getData() async {
-    User? user = await FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
 
     var getDocuments = await FirebaseFirestore.instance
         .collection('profileInfo')
